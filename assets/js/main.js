@@ -48,24 +48,27 @@ function selectElements(selettore, classe_attivata, classe_bomba) {
     for (let i = 0; i < cells.length; i++) {
         const cell = cells[i];
         
-        cell.addEventListener('click', function () {
+        cell.addEventListener('click', bomb);
             //console.log(this, i);
-            
-            
-            // identifico il numero della cella 
-            let cellNumber = parseInt(cell.textContent);
-            //console.log(cellNumber);
-
-            // se la lista che contiene i numeri delle posizioni delle bombe include il numero della cella cliccata, allora aggiungi classe bomb , ossia la cella diventa rossa
-            if (bombNumber.includes(cellNumber)) { 
-                this.classList.add(classe_bomba);
-                this.innerHTML = 'Boom';
-                alert('Game over')
-                
-            } else{
-                this.classList.add(classe_attivata);
+            function bomb() {
+                // identifico il numero della cella 
+                let cellNumber = parseInt(cell.textContent);
+                //console.log(cellNumber);
+    
+                // se la lista che contiene i numeri delle posizioni delle bombe include il numero della cella cliccata, allora aggiungi classe bomb , ossia la cella diventa rossa
+                if (bombNumber.includes(cellNumber)) { 
+                    this.classList.add(classe_bomba);
+                    this.innerHTML = 'Boom';
+                    alert('Game over');
+                    removeBomb();
+                } else{
+                    this.classList.add(classe_attivata);
+                }
             }
-        });
+
+            function removeBomb() {
+                cell.removeEventListener('click', bomb);
+            }
     };
 };
 

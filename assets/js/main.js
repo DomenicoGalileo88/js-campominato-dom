@@ -45,30 +45,28 @@ function selectElements(selettore, classe_attivata, classe_bomba) {
     let bombNumber = generateBombNumber();
     console.log(bombNumber);
 
+    const bomb = function () {
+        // identifico il numero della cella 
+        let cellNumber = parseInt(this.textContent);
+        //console.log(cellNumber);
+
+        // se la lista che contiene i numeri delle posizioni delle bombe include il numero della cella cliccata, allora aggiungi classe bomb , ossia la cella diventa rossa
+        if (bombNumber.includes(cellNumber)) {
+            this.classList.add('bomb');
+            this.innerHTML = 'Boom';
+            alert('Game over');
+            for (let i = 0; i < cells.length; i++) {
+                const cell = cells[i];
+                cell.removeEventListener('click', bomb);
+            };
+        } else {
+            this.classList.add('bg_blue');
+        }
+    }
+
     for (let i = 0; i < cells.length; i++) {
         const cell = cells[i];
-        
         cell.addEventListener('click', bomb);
-            //console.log(this, i);
-            function bomb() {
-                // identifico il numero della cella 
-                let cellNumber = parseInt(cell.textContent);
-                //console.log(cellNumber);
-    
-                // se la lista che contiene i numeri delle posizioni delle bombe include il numero della cella cliccata, allora aggiungi classe bomb , ossia la cella diventa rossa
-                if (bombNumber.includes(cellNumber)) { 
-                    this.classList.add(classe_bomba);
-                    this.innerHTML = 'Boom';
-                    alert('Game over');
-                    removeBomb();
-                } else{
-                    this.classList.add(classe_attivata);
-                }
-            }
-
-            function removeBomb() {
-                cell.removeEventListener('click', bomb);
-            }
     };
 };
 
@@ -150,10 +148,7 @@ function generateRundomNumber(min, max) {
 
 //Funzione che genera 16 numeri casuali
 
-function generateBombNumber() {
-    // creo una lista di numeri
-    const randomNumbers = [];
-
+function limite() {
     let limit = document.getElementById('difficolta').value;
 
     let limit_num;
@@ -165,6 +160,16 @@ function generateBombNumber() {
     } else if (limit == 'hard') {
         limit_num = 49;
     }
+
+    return limit_num;
+}
+
+
+function generateBombNumber() {
+    // creo una lista di numeri
+    const randomNumbers = [];
+
+    let limit_num = limite();
     
     let i = 1;
     //genera 16 numeri casuali non ripetibili 

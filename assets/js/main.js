@@ -50,7 +50,7 @@ function selectElements(selettore, classe_attivata, classe_bomba) {
         
         cell.addEventListener('click', function () {
             //console.log(this, i);
-            this.classList.add(classe_attivata);
+            
             
             // identifico il numero della cella 
             let cellNumber = parseInt(cell.textContent);
@@ -59,6 +59,11 @@ function selectElements(selettore, classe_attivata, classe_bomba) {
             // se la lista che contiene i numeri delle posizioni delle bombe include il numero della cella cliccata, allora aggiungi classe bomb , ossia la cella diventa rossa
             if (bombNumber.includes(cellNumber)) { 
                 this.classList.add(classe_bomba);
+                this.innerHTML = 'Boom';
+                alert('Game over')
+                
+            } else{
+                this.classList.add(classe_attivata);
             }
         });
     };

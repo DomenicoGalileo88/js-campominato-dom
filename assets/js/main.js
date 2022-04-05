@@ -40,24 +40,26 @@ function generaGriglia(selettore, nome_tag, nome_classe, limite) {
  */
 function selectElements(selettore, classe_attivata) {
     const cells = document.querySelectorAll(selettore);
-    generateBombNumber();
-    console.log(generateBombNumber());
+    //generateBombNumber();
+    //console.log(generateBombNumber());
+    let bombNumber = generateBombNumber();
+    
+    
 
     for (let i = 0; i < cells.length; i++) {
         const cell = cells[i];
-
+        
         cell.addEventListener('click', function () {
             //console.log(this, i);
             this.classList.add(classe_attivata);
             
             // identifico il numero della cella 
-
+            let cellNumber = cell.textContent;
+            console.log(cellNumber);
             // se il numero della cella combacia con il numero della bomba, allora aggiungi classe bomb , ossia la cella diventa rossa
-            /* if (generateBombNumber() == this) {
+            /* if (bombNumber.includes(cellNumber)) {
                 console.log('bomba');
             } */
-            
-          
             
         });
     };

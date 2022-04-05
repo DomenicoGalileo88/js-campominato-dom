@@ -38,14 +38,12 @@ function generaGriglia(selettore, nome_tag, nome_classe, limite) {
  * @param {string} selettore 
  * @param {*} classe_attivata 
  */
-function selectElements(selettore, classe_attivata) {
+function selectElements(selettore, classe_attivata, classe_bomba) {
     const cells = document.querySelectorAll(selettore);
     //generateBombNumber();
     //console.log(generateBombNumber());
     let bombNumber = generateBombNumber();
     console.log(bombNumber);
-    
-    
 
     for (let i = 0; i < cells.length; i++) {
         const cell = cells[i];
@@ -57,10 +55,10 @@ function selectElements(selettore, classe_attivata) {
             // identifico il numero della cella 
             let cellNumber = parseInt(cell.textContent);
             //console.log(cellNumber);
-            
-            // se il numero della cella combacia con il numero della bomba, allora aggiungi classe bomb , ossia la cella diventa rossa
+
+            // se la lista che contiene i numeri delle posizioni delle bombe include il numero della cella cliccata, allora aggiungi classe bomb , ossia la cella diventa rossa
             if (bombNumber.includes(cellNumber)) { 
-                console.log('bomba');
+                this.classList.add(classe_bomba);
             }
         });
     };
@@ -94,7 +92,7 @@ play.addEventListener('click', function (event) {
     generaGriglia('.cells', 'div', 'cell', limite_num);
 
     //Quando l'utente clicca su ogni cella, la cella cliccata si colora di azzurro.
-    selectElements('.cell', 'bg_blue');
+    selectElements('.cell', 'bg_blue', 'bomb');
 
     // In base alla scelta della difficoltà cambia la grandezza della cella e della griglia
     const cells = document.querySelectorAll('.cell');

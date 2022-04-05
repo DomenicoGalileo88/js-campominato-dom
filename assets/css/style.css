@@ -67,6 +67,10 @@ main {
     background-color: cornflowerblue;
 }
 
+.bomb {
+    background-color: red;
+}
+
 footer {
     padding: 2rem;
     text-align: center;

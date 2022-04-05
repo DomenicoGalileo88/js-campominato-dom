@@ -40,16 +40,37 @@ function generaGriglia(selettore, nome_tag, nome_classe, limite) {
  */
 function selectElements(selettore, classe_attivata) {
     const cells = document.querySelectorAll(selettore);
+    generateBombNumber();
+    console.log(generateBombNumber());
 
     for (let i = 0; i < cells.length; i++) {
         const cell = cells[i];
 
         cell.addEventListener('click', function () {
             //console.log(this, i);
-            this.classList.toggle(classe_attivata);
+            this.classList.add(classe_attivata);
+            
+            // identifico il numero della cella 
+
+            // se il numero della cella combacia con il numero della bomba, allora aggiungi classe bomb , ossia la cella diventa rossa
+            /* if (generateBombNumber() == this) {
+                console.log('bomba');
+            } */
+            
+          
+            
         });
     };
 };
+
+
+
+
+/* In seguito l'utente clicca su una cella:
+se il numero è presente nella lista dei numeri generati - abbiamo calpestato una bomba
+la cella si colora di rosso e la partita termina,
+altrimenti la cella cliccata si colora di azzurro e l'utente può continuare a cliccare sulle altre celle. */
+
 
 // quando clicca su play
 let play = document.getElementById('play');
@@ -94,7 +115,7 @@ play.addEventListener('click', function (event) {
 /* 
 Consegna 2
 
-Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe :bomba:.
+Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
 I numeri nella lista delle bombe non possono essere duplicati.
 
 In seguito l'utente clicca su una cella:
@@ -112,3 +133,47 @@ BONUS: 1
 quando si clicca su una bomba e finisce la partita, evitare che si possa cliccare su altre celle
 quando si clicca su una bomba e finisce la partita, il software scopre tutte le bombe nascoste
 */
+
+/* Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
+I numeri nella lista delle bombe non possono essere duplicati. */
+
+//Funzione che genera numeri casuali con un min e un max
+function generateRundomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+//Funzione che genera 16 numeri casuali
+
+function generateBombNumber() {
+    // creo una lista di numeri
+    const randomNumbers = [];
+    let i = 1;
+    //genera 16 numeri casuali non ripetibili 
+    while (randomNumbers.length !== 16) {
+        // genera un numero casuale da 1 a 16
+        const randomNumber = generateRundomNumber(1, 16);
+        // se il numero che genero non è incluso nella lista, aggiungilo
+        if (!randomNumbers.includes(randomNumber)) {
+            randomNumbers.push(randomNumber);
+        }
+       i++;            
+    };
+    return randomNumbers; // la lista di numeri
+};
+//console.log(generateBombNumber());
+
+
+/* In seguito l'utente clicca su una cella:
+se il numero è presente nella lista dei numeri generati - abbiamo calpestato una bomba
+la cella si colora di rosso e la partita termina,
+altrimenti la cella cliccata si colora di azzurro e l'utente può continuare a cliccare sulle altre celle. */
+
+
+
+/* La partita termina quando:
+ il giocatore clicca su una bomba
+o raggiunge il numero massimo possibile di numeri consentiti. */
+
+
+
+/* Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella che non era una bomba. */

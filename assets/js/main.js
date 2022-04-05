@@ -43,6 +43,7 @@ function selectElements(selettore, classe_attivata) {
     //generateBombNumber();
     //console.log(generateBombNumber());
     let bombNumber = generateBombNumber();
+    console.log(bombNumber);
     
     
 
@@ -54,19 +55,16 @@ function selectElements(selettore, classe_attivata) {
             this.classList.add(classe_attivata);
             
             // identifico il numero della cella 
-            let cellNumber = cell.textContent;
-            console.log(cellNumber);
-            // se il numero della cella combacia con il numero della bomba, allora aggiungi classe bomb , ossia la cella diventa rossa
-            /* if (bombNumber.includes(cellNumber)) {
-                console.log('bomba');
-            } */
+            let cellNumber = parseInt(cell.textContent);
+            //console.log(cellNumber);
             
+            // se il numero della cella combacia con il numero della bomba, allora aggiungi classe bomb , ossia la cella diventa rossa
+            if (bombNumber.includes(cellNumber)) { 
+                console.log('bomba');
+            }
         });
     };
 };
-
-
-
 
 /* In seguito l'utente clicca su una cella:
 se il numero è presente nella lista dei numeri generati - abbiamo calpestato una bomba
@@ -149,11 +147,24 @@ function generateRundomNumber(min, max) {
 function generateBombNumber() {
     // creo una lista di numeri
     const randomNumbers = [];
+
+    let limit = document.getElementById('difficolta').value;
+
+    let limit_num;
+
+    if (limit == 'easy') {
+        limit_num = 100;
+    } else if (limit == 'medium') {
+        limit_num = 81;
+    } else if (limit == 'hard') {
+        limit_num = 49;
+    }
+    
     let i = 1;
     //genera 16 numeri casuali non ripetibili 
     while (randomNumbers.length !== 16) {
         // genera un numero casuale da 1 a 16
-        const randomNumber = generateRundomNumber(1, 16);
+        const randomNumber = generateRundomNumber(1, limit_num);
         // se il numero che genero non è incluso nella lista, aggiungilo
         if (!randomNumbers.includes(randomNumber)) {
             randomNumbers.push(randomNumber);
